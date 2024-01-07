@@ -17,6 +17,8 @@ public class PassengerCarriage : TrainCarriage
     {
         base.Interact();
         // Add Passenger specific interaction logic here
-        Debug.Log("Checking on " + PassengerCount + " passengers.");
+        CarriageStatus = PassengerCount + " Passengers";
+
+        //Debug.Log("Checking on " + PassengerCount + " passengers.");
     }
 }

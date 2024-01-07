@@ -5,13 +5,13 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     // Resource variables
-    private int food = 100;
-    private int water = 100;
-    private int energy = 100;
+    private int food = 1000;
+    private int water = 1000;
+    private int energy = 1000;
 
     // Resource consumption rates
-    private int foodConsumptionRate = 5;
-    private int waterConsumptionRate = 7;
+    private int foodConsumptionRate = 1;
+    private int waterConsumptionRate = 1;
     private int energyConsumptionRate = 10;
 
     // Resource production rates
@@ -19,26 +19,38 @@ public class ResourceManager : MonoBehaviour
     private int waterProductionRate = 5;
     private int energyProductionRate = 8;
 
+    public float delay = 1f;
+    float timer;
+
+    // void Start(){
+    //     Invoke("ConsumeResources", 1);
+
+    // }
     void Update()
     {
-        // Simulate resource consumption over time
-        //ConsumeResources();
+        timer += Time.deltaTime;
+        if (timer > delay)
+        {
+        //Simulate resource consumption over time
+        ConsumeResources();
+        timer -= delay;
 
+        }
         // Simulate resource production over time
         // ProduceResources();
         // Debug.log(food);
     }
 
-    // void ConsumeResources()
-    // {
-    //     // Consume resources based on consumption rates
-    //     food -= foodConsumptionRate * Time.deltaTime;
-    //     water -= waterConsumptionRate * Time.deltaTime;
-    //     energy -= energyConsumptionRate * Time.deltaTime;
+    void ConsumeResources()
+    {
+        // Consume resources based on consumption rates
+        food -= foodConsumptionRate;
+        water -= waterConsumptionRate;
+        energy -= energyConsumptionRate;
 
-    //     // Ensure resources do not go below zero
-    //     ClampResources();
-    // }
+        // Ensure resources do not go below zero
+        ClampResources();
+    }
 
     // void ProduceResources()
     // {
@@ -54,9 +66,9 @@ public class ResourceManager : MonoBehaviour
     void ClampResources()
     {
         // Ensure resources stay within the range of 0 to 100
-        food = Mathf.Clamp(food, 0, 100);
-        water = Mathf.Clamp(water, 0, 100);
-        energy = Mathf.Clamp(energy, 0, 100);
+        food = Mathf.Clamp(food, 0, 1000);
+        water = Mathf.Clamp(water, 0, 1000);
+        energy = Mathf.Clamp(energy, 0, 1000);
     }
 
     // function to be called when consuming food
@@ -93,5 +105,15 @@ public class ResourceManager : MonoBehaviour
 
         // Ensure water does not exceed 100
         ClampResources();
+    }
+
+    public int getFood(){
+        return food;
+       // return water;
+    }
+
+    public int getWater(){
+        return water;
+       // return water;
     }
 }

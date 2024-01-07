@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EngineCarriage : TrainCarriage
 {
+    public bool isRunning = true;
      void Start()
     {
         CarriageType = "Engine";
+        if (isRunning) CarriageStatus = "Engine is Running.";
     }
 
     public override void Interact()

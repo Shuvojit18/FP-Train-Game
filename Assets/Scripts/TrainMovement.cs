@@ -2,16 +2,23 @@ using UnityEngine;
 
 public class TrainMovement : MonoBehaviour
 {
-    public float speed = 1.0f;
+    public float speed = 0.0f;
+    public float accl = 0.0f;
     public bool isMoving = true;
+    public bool isBraking = true;
 
     void Update()
     {
-        if (isMoving)
+        if (isMoving && !isBraking)
         {
-            if (speed < 6) speed = speed + Time.deltaTime - 0.0125f;
+            if (speed < 10) speed = speed + accl;
             // Move the train along the X-axis
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            transform.Translate(Vector3.right * speed * accl);
+        }
+
+        if (isBraking){
+            if (speed > 0) speed = speed - accl; 
+            transform.Translate(Vector3.right * speed * accl);
         }
     }
 

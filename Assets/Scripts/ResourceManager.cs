@@ -28,14 +28,14 @@ public class ResourceManager : MonoBehaviour
     // }
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > delay)
-        {
-        //Simulate resource consumption over time
-        ConsumeResources();
-        timer -= delay;
+        // timer += Time.deltaTime;
+        // if (timer > delay)
+        // {
+        // //Simulate resource consumption over time
+        // ConsumeResources();
+        // timer -= delay;
 
-        }
+        // }
         // Simulate resource production over time
         // ProduceResources();
         // Debug.log(food);

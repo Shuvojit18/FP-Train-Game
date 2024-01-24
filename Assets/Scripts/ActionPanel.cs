@@ -6,20 +6,23 @@ public class ActionPanelToggle : MonoBehaviour
     Toggle t;
     private TrainMovement tm;
 
-    Slider s;
+    Slider throttle;
+
+
+    
 
     void Start()
     {
-        //Fetch the Toggle GameObject
-        t = GetComponentInChildren<Toggle>();
-        //Add listener for when the state of the Toggle changes, to take action
-        t.onValueChanged.AddListener(delegate {
-            ToggleValueChanged(t);
-        });
+        // //Fetch the Toggle GameObject
+        // t = GetComponentInChildren<Toggle>();
+        // //Add listener for when the state of the Toggle changes, to take action
+        // t.onValueChanged.AddListener(delegate {
+        //     ToggleValueChanged(t);
+        // });
 
-        s = GetComponentInChildren<Slider>();
+        throttle = GetComponentInChildren<Slider>();
         //Add listener for when the state of the Toggle changes, to take action
-        s.onValueChanged.AddListener(delegate {
+        throttle.onValueChanged.AddListener(delegate {
             SliderValueChanged();
         });
         //its used because there is only one train movement script in the scene
@@ -30,12 +33,11 @@ public class ActionPanelToggle : MonoBehaviour
     void ToggleValueChanged(Toggle change)
     {
         //Activate your game object
-        tm.ChangeBrake();
+       // tm.ChangeBrake();
     }
 
     void SliderValueChanged()
     {
-        //Activate your game object
-        tm.ChangeMaxSpeed(s.value);
+       tm.ChangeThrottle(throttle.value); 
     }
 }

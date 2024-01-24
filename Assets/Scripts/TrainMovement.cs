@@ -13,13 +13,8 @@ public class TrainMovement : MonoBehaviour
 
     void Update()
     {
-        // //isBraking = myToggle.isOn;
-        // if (!isBraking)
-        // {
-            
-        // }
-
-        if (isBraking && throttle < 10){
+        
+        if (isBraking){
             if (speed > 0) speed = speed - accl*2; 
             transform.Translate(Vector3.right * speed * accl);
         } else{
@@ -48,7 +43,7 @@ public class TrainMovement : MonoBehaviour
 
     }
 
-    public void ChangeMaxSpeed(float f){
+    public void ChangeThrottle(float f){
         throttle = maxSpeed * f;
     }
 }

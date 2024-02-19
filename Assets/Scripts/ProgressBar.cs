@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; 
 
 public class ProgressBar : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class ProgressBar : MonoBehaviour
 
             progressBar.value = currentValue / maxValue;
 
-            // Check if train has reached or surpassed the current station
+            // Check if train has reached or passed the current station
             if (train.transform.position.x >= approachingStation.transform.position.x)
             {
                 lastStationPosition = approachingStation.transform.position.x;
@@ -40,7 +41,8 @@ public class ProgressBar : MonoBehaviour
                 
                 if (currentStationIndex >= stations.Length)
                 {
-                    Debug.Log("Reached the end of station");
+                    Debug.Log("Reached the end of level");
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
             }
         }

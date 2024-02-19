@@ -9,16 +9,16 @@ public class SignalSystem : MonoBehaviour
 
     void Start()
     {
-        tm = FindObjectOfType<TrainMovement>();
-        InvokeRepeating("ToggleBool", 5f, intervalSeconds); // Start immediately, repeat every intervalSeconds
+        //tm = FindObjectOfType<TrainMovement>();
+        //InvokeRepeating("ToggleBool", 5f, intervalSeconds); // Start immediately, repeat every intervalSeconds
     }
 
-    private void ToggleBool()
-    {
-        if (Random.value > 0.5f) signal = true;
-        else signal = false;
+    // private void ToggleBool()
+    // {
+    //     if (Random.value > 0.5f) signal = true;
+    //     else signal = false;
         
-        tm.signal = signal;
-        Debug.Log(signal);
-    }
+    //     tm.signal = signal;
+    //     Debug.Log(signal);
+    // }
 }

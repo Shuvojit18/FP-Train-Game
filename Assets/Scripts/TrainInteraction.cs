@@ -82,6 +82,6 @@ public class TrainInteraction : MonoBehaviour
     // function for interacting with storage
     private void StorageInteraction()
     {
-        // Perform actions related to storage interaction (e.g., accessing or storing items)
+        // Perform actions 
     }
 }

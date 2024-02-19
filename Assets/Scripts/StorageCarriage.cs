@@ -19,8 +19,6 @@ public class StorageCarriage : TrainCarriage
         int water = rm.getWater();
 
         CarriageStatus = "Food " + food + "  Water" + water;
-        // Add Resource specific interaction logic here
-        Debug.Log("Managing resources in the carriage.");
     }
 
 

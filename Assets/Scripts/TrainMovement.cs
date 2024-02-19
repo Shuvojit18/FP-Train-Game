@@ -11,12 +11,24 @@ public class TrainMovement : MonoBehaviour
     public float maxSpeed = 20.0f;
     public float throttle;
     public bool delegation = false;
-    public AudioSource horn;
-    public AudioSource engine;
+    //public AudioSource horn;
+    //public AudioSource engine;
 
+    public bool isStopping = false;
+    private float stopThreshold = 1f; // Speed below which the train is considered to be stopping
+    private bool isNearStation = true;
+
+    public bool coupling = true;
+    
     void Start()
     {
+        // GameObject self = this.GameObject;
+        // Transform trainTransform = self.transform.parent.parent;
+
+        
         //engine = GetComponent<AudioSource>();
+       // Debug.Log(train);
+
     }
 
     void Update()
@@ -35,12 +47,21 @@ public class TrainMovement : MonoBehaviour
             
         if (isBraking){
             if (speed > 0) speed = speed - accl*2; 
-            transform.Translate(Vector3.right * speed * accl);
+            if(coupling) transform.parent.Translate(Vector3.right * speed * accl);
+            else transform.Translate(Vector3.right * speed * accl);
         } else{
             if (speed < throttle) speed = speed + accl;
             else if (speed > throttle) speed = speed - accl/3;
             // Move the train along the X-axis
-            transform.Translate(Vector3.right * speed * accl);
+            if(coupling) transform.parent.Translate(Vector3.right * speed * accl);
+            else transform.Translate(Vector3.right * speed * accl);
+        }
+
+        if (speed <= stopThreshold){
+            isStopping = true;
+            CheckIfStoppedCorrectly();
+        } else {
+            isStopping = false;
         }
     }
 
@@ -64,5 +85,33 @@ public class TrainMovement : MonoBehaviour
 
     public void ChangeThrottle(float f){
         throttle = maxSpeed * f;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("station"))
+        {
+            isNearStation = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("station"))
+        {
+            isNearStation = false;
+        }
+    }
+
+    void CheckIfStoppedCorrectly()
+    {
+        if (!isNearStation) {
+            // Logic for incorrect stopping
+            Debug.Log("game over");
+        }
+    }
+
+    void Reverse(){
+
     }
 }

@@ -1,20 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class EngineCarriage : TrainCarriage
 {
-    public bool isRunning = true;
-     void Start()
+    public bool isRunning = false;
+    
+    void Start()
     {
         CarriageType = "Engine";
-        if (isRunning) CarriageStatus = "Engine is Running.";
+        CarriageStatus = "Engine is Off";
+    }
+
+    public void isRunningToggle(){
+        isRunning = !isRunning;
     }
 
     public override void Interact()
     {
+   
         base.Interact();
         // Add Engine specific interaction logic here
-        Debug.Log("Controlling the train's movement.");
+       
     }
-}
+
+    public override string GetInteractionMessage()
+    {
+       // return "Controlling the train's movement.";
+        if (isRunning) CarriageStatus = "Engine is Running.";
+        else CarriageStatus = "Engine is Off";
+        return CarriageType + " Carriage. " + CarriageStatus;
+    }
+ }

@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //child class of train carriage
 public class PassengerCarriage : TrainCarriage
 {
     public int PassengerCount { get; private set; }
-    public float PassengerMorale { get; private set; }
-    public float PassengerHealth { get; private set; }
+    public int PassengerMorale { get; private set; }
+    public int PassengerHealth { get; private set; }
 
+    private ResourceManager resource;
     // if we require more than 1 passenger car this may come in handy
     // public PassengerCarriage(int initialPassengers)
     // {
@@ -19,34 +18,66 @@ public class PassengerCarriage : TrainCarriage
 
    
 
-    void Start()
-    {
+    void Start(){
         CarriageType = "Passenger";
         PassengerCount = 10; // passenger count, can be set differently
-        PassengerMorale = 100; // Start with full morale
-        PassengerHealth = 100; // Start with full health
+        PassengerMorale = 50; // Start with half morale
+        PassengerHealth = 50; // Start with half health
+
+        resource = FindObjectOfType<ResourceManager>();
 
     }
 
-    public override void Interact()
-    {
+    // void Update(){
+        
+    // }
+
+    public override void Interact(){
         base.Interact();
-        // Add Passenger specific interaction logic here
+        if(PassengerHealth <= 0){
+            PassengerCount = 0;
+            Debug.Log("All passenger dead, game over");
+        }
+
+        if (PassengerMorale <= 0){
+            PassengerCount--;
+            Debug.Log("Passengers are depressed, 1 person died");
+        }
         CarriageStatus = PassengerCount + " Passengers. " + " Health - " + PassengerHealth  + " Morale - " + PassengerMorale;
 
-        //Debug.Log("Checking on " + PassengerCount + " passengers.");
     }
 
-     // Call this method to distribute food to passengers
-    public void DistributeFood(int foodAmount)
-    {
-        // Implement logic to affect passenger morale and health based on food distribution
-        // Example: Increase morale and health if food is sufficient
+     // distribute meal to passengers
+    public void DistributeMeal(){
+        if(resource.getFood() > 0 && resource.getWater() > 0){
+            PassengerHealth = PassengerHealth + PassengerCount/2;
+            PassengerMorale = PassengerMorale + PassengerCount/3;
+            Clamp();
+            resource.ConsumeFood(PassengerCount);
+            resource.ConsumeWater(PassengerCount);
+        } else {
+            //Debug.Log("Not enough food");
+        }   
     }
 
-    // Call this method to distribute water to passengers
-    public void DistributeWater(int waterAmount)
-    {
-        // Similar implementation as DistributeFood
+    // distribute soup to passengers
+    public void DistributeSoup(){
+        if(resource.getFood() + resource.getWater() > 0){
+            PassengerHealth++;
+            PassengerHealth++;
+            PassengerMorale--;
+            Clamp();
+            resource.ConsumeFood(PassengerCount/3);
+            resource.ConsumeWater(PassengerCount/2);
+        }
     }
+
+    void Clamp(){
+       // PassengerCount = Mathf.Clamp(PassengerCount, 0, 10);
+        PassengerHealth = Mathf.Clamp(PassengerHealth, 0, 100);
+        PassengerMorale = Mathf.Clamp(PassengerMorale, 0, 100);
+        Debug.Log(PassengerHealth + "-health.morale-" + PassengerMorale);
+    }
+
+
 }

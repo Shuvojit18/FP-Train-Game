@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public GameObject train; // Assign your train GameObject in the inspector
-    public float offset = 5.0f; // Adjust this value as needed
+    public GameObject train; // Assign in the inspector
+    public float offset = 5.0f; 
 
     void LateUpdate()
     {

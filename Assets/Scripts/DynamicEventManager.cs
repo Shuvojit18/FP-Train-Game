@@ -7,7 +7,7 @@ public class DynamicEventManager : MonoBehaviour
     // Reference to the ResourceManager script
     public ResourceManager resourceManager;
 
-    // Example event types
+    // event types
     public enum EventType
     {
         FoodShortage,
@@ -53,19 +53,19 @@ public class DynamicEventManager : MonoBehaviour
         switch (eventType)
         {
             case EventType.FoodShortage:
-                //Reduce food resources
+                //Reduce food 
                 resourceManager.ConsumeFood(20);
                 Debug.Log("Food shortage event!");
                 break;
 
             case EventType.WaterShortage:
-                //Reduce water resources
+                //Reduce water
                 resourceManager.ConsumeWater(15);
                 Debug.Log("Water shortage event!");
                 break;
 
             case EventType.EnergyCrisis:
-                //Reduce energy resources
+                //Reduce energy 
                 //resourceManager.ConsumeEnergy(30);
                 Debug.Log("Energy crisis event!");
                 break;

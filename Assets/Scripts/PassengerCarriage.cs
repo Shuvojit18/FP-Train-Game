@@ -21,8 +21,8 @@ public class PassengerCarriage : TrainCarriage
     void Start(){
         CarriageType = "Passenger";
         PassengerCount = 10; // passenger count, can be set differently
-        PassengerMorale = 50; // Start with half morale
-        PassengerHealth = 50; // Start with half health
+        PassengerMorale = 25; // Start with half morale
+        PassengerHealth = 25; // Start with half health
 
         resource = FindObjectOfType<ResourceManager>();
 

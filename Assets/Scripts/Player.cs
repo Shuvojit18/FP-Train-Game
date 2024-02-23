@@ -10,12 +10,10 @@ public class PathMovement : MonoBehaviour
     private int waypointIndex = 0;
     private bool movingRight = true;
 
-    void Update()
+    void FixedUpdate()
     {
-        if (allowMovement)
-        {
-            MoveAlongPath();
-        }
+        if (allowMovement) MoveAlongPath();
+
     }
 
     void MoveAlongPath()

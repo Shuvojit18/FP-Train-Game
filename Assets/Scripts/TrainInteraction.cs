@@ -17,7 +17,7 @@ public class TrainInteraction : MonoBehaviour
     // Variables for storage interactions
     private bool isAtStorage = false;
 
-    void Update()
+    void FixedUpdate()
     {
         // Check for workstation interaction
         if (isAtWorkstation)
@@ -32,19 +32,19 @@ public class TrainInteraction : MonoBehaviour
         }
     }
 
-    // Example function for entering a workstation area
+    // function for entering a workstation area
     public void EnterWorkstation()
     {
         isAtWorkstation = true;
     }
 
-    // Example function for exiting a workstation area
+    // function for exiting a workstation area
     public void ExitWorkstation()
     {
         isAtWorkstation = false;
     }
 
-    // Example function for interacting with a workstation
+    // function for interacting with a workstation
     private void WorkstationInteraction()
     {
         // Simulate a task being completed over time

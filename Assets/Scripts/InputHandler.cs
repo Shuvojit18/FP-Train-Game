@@ -17,13 +17,9 @@ public class InputHandler : MonoBehaviour
         {
             Debug.LogError("Main camera not found");
         }
-
-        // engine = FindObjectOfType<EngineCarriage>();
-        // enginePanel = compareTag("Engine Panel");
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {   //checking if there is a mouse click and main camera present
         if (Input.GetMouseButtonDown(0) && mainCamera != null)
         {

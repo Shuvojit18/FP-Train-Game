@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement; 
+using System.Collections;
 
 public class ProgressBar : MonoBehaviour
 {
@@ -20,13 +21,12 @@ public class ProgressBar : MonoBehaviour
     void Start()
     {
         progressBar = GetComponent<Slider>();
-        //approachingStation = stations[currentStationIndex];
-        //tm = FindObjectOfType<TrainMovement>();
+        StartCoroutine(ExecuteEverySecond());
     }
 
-    void Update()
-    {
-        if (currentStationIndex < stations.Length){
+    IEnumerator ExecuteEverySecond() {
+        while (true) {
+            if (currentStationIndex < stations.Length){
             approachingStation = stations[currentStationIndex];
             maxValue = Mathf.Abs((approachingStation.transform.position.x - 20) - lastStationPosition); //returns absolute value
             currentValue = Mathf.Clamp(train.transform.position.x - lastStationPosition, 0, maxValue); //clamps those values
@@ -54,7 +54,16 @@ public class ProgressBar : MonoBehaviour
                 }
             }
         }
-        
-        
+
+            yield return new WaitForSeconds(1f); // Wait for one second
+        }
     }
+
+
+    // void Update()
+    // {
+        
+        
+        
+    // }
 }

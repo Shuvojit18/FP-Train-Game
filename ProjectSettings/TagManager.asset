@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - station
+  - 1st Station
+  - 2nd Station
+  - 3rd Station
+  - Start Station
   layers:
   - Default
   - TransparentFX

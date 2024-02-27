@@ -4,17 +4,20 @@ using UnityEngine;
 public class PassengerCarriage : TrainCarriage
 {
     public int PassengerCount { get; private set; }
-    public int PassengerMorale { get; private set; }
+    public int PassengerMorale { get; set; }
     public int PassengerHealth { get; private set; }
     public bool unlocked = false;
 
+    EngineCarriage ec;
     private ResourceManager resource;
+    GameManager gm;
     bool doOnce = true;
+    bool pull = false;
 
     //for lerp calculation
-    float startValue, endValue, timeElapsed = 0f;
-    float duration = 13f; // Duration of the transition in seconds
-    // if we require more than 1 passenger car this may come in handy
+    // float startValue, endValue, timeElapsed = 0f;
+    // float duration = 3f; // Duration of the transition in seconds
+    //if we require more than 1 passenger car this may come in handy
     // public PassengerCarriage(int initialPassengers)
     // {
     //     PassengerCount = initialPassengers;
@@ -29,20 +32,20 @@ public class PassengerCarriage : TrainCarriage
         PassengerHealth = 25; // Start with half health
 
         resource = FindObjectOfType<ResourceManager>();
-
+        gm = FindObjectOfType<GameManager>();
+        ec = FindObjectOfType<EngineCarriage>();
         //this.SetVisibility = false;
 
     }
 
-    // void FixedUpdate(){
-        // if(unlocked && doOnce){
-        //     Vector3 currentPosition = pc.transform.position;
-        //     startValue = currentPosition.x - 20;
-        //     endValue = currentPosition.x;
-        //     float currentValue = Mathf.Lerp(startValue, endValue, timeElapsed / duration);
-        //     pc.transform.position = new Vector3(currentValue, currentPosition.y, currentPosition.z);
-        // }
-    // }
+    void FixedUpdate(){
+        //if(ec.transform.position.x - transform.position.x > 20) transform.Translate(Vector3.right * 0.1f);
+        if(unlocked && pull){
+            if(ec.transform.position.x - transform.position.x < 5.5f) Debug.Log("Collision !!!! Game over !!");      
+            
+            transform.Translate(Vector3.right * 0.015f);
+        }
+    }
 
     public override void Interact(){
         base.Interact();
@@ -89,6 +92,10 @@ public class PassengerCarriage : TrainCarriage
         PassengerHealth = Mathf.Clamp(PassengerHealth, 0, 100);
         PassengerMorale = Mathf.Clamp(PassengerMorale, 0, 100);
         Debug.Log(PassengerHealth + "-health.morale-" + PassengerMorale);
+    }
+
+    public void pullCarriage(){
+        pull = !pull;
     }
 
 

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    EngineCarriage ec;
     PassengerCarriage pc;
+    StorageCarriage sc;
     TrainMovement tm;
     GameObject pcModel;
+    GameObject scModel;
     CameraFollow cf;
     CarriageUIManager ui;
     InputHandler input;
@@ -14,21 +17,31 @@ public class GameManager : MonoBehaviour
     int timer = 0;
     bool doOnce = true;
 
+    public float socket;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        pc = FindObjectOfType<PassengerCarriage>();
-        pcModel = pc.transform.GetChild(0).gameObject;
-        tm = FindObjectOfType<TrainMovement>();
         DontDestroyOnLoad(this.gameObject);
+
+        ec = FindObjectOfType<EngineCarriage>();
+        pc = FindObjectOfType<PassengerCarriage>();
+        sc = FindObjectOfType<StorageCarriage>();
+        
+        pcModel = pc.transform.GetChild(0).gameObject;
+        scModel = sc.transform.GetChild(0).gameObject;
+        
+        tm = FindObjectOfType<TrainMovement>();
         cf = FindObjectOfType<CameraFollow>();
         ui = FindObjectOfType<CarriageUIManager>();
         input = FindObjectOfType<InputHandler>();
+        
         StartCoroutine(ExecuteEverySecond());
         StartCoroutine(UnlockPassengerCarriage());
+        StartCoroutine(UnlockStorageCarriage());
 
+        //socket = ec.transform.position.x;
     }
 
     //Using coroutine to save resouces for those function that doesnt require update every frame
@@ -40,9 +53,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Passenger carriage unlock event 
     IEnumerator UnlockPassengerCarriage(){
         yield return new WaitUntil(() => PassengerCarriageUnlockCondition() && input.playerDecision); // adapted from unity doc - "https://docs.unity3d.com/ScriptReference/WaitUntil.html"
-        
         
         pc.unlocked = true;
         Debug.Log("Passenger Carriage Unlocked!");
@@ -50,7 +63,22 @@ public class GameManager : MonoBehaviour
         cf.targetOffset = -5f;
         tm.accl = tm.accl - 0.005f;
         ui.HideDecisionPanel();
-        //increase passenger morale
+        pc.PassengerMorale = pc.PassengerMorale + pc.PassengerMorale/3; //increase passenger morale
+        Debug.Log(pc.PassengerMorale);
+        //socket = socket + 5f;
+    } 
+
+    IEnumerator UnlockStorageCarriage(){
+        yield return new WaitUntil(() => StorageCarriageUnlockCondition() && input.playerDecision); // adapted from unity doc - "https://docs.unity3d.com/ScriptReference/WaitUntil.html"
+        sc.unlocked = true;
+        Debug.Log("Storage Carriage Unlocked!");
+        scModel.SetActive(true);
+        cf.targetOffset = -5f;
+        tm.accl = tm.accl - 0.005f;
+        ui.HideDecisionPanel();
+        pc.PassengerMorale = pc.PassengerMorale + pc.PassengerMorale/4; //increase passenger morale
+        Debug.Log(pc.PassengerMorale);
+        //socket = socket - 5f;
     } 
 
 
@@ -67,16 +95,25 @@ public class GameManager : MonoBehaviour
                     ui.ShowDecisionPanel();
                     doOnce = false;
                 }
-                return true;
-        } else return false;    // unlock passenger carriage 
+                return true;    // unlock passenger carriage
+        } else return false;     
+    }
+
+    bool StorageCarriageUnlockCondition(){
+        if (tm.isNear2ndStation && tm.isStopping && !sc.unlocked){
+                if(doOnce){
+                    ui.ShowDecisionPanel();
+                    doOnce = false;
+                }
+                return true;    // unlock Resource carriage 
+        } else return false;    
     }
 
     //Resets some logics so user can interact again
     void Reset(){
-        //ui.HideActionPanel();
         ui.HideInteractionPanel();
-        //ui.HideDecisionPanel();
         timer = 0;
         doOnce = true;
+        input.playerDecision = false;
     } 
 }

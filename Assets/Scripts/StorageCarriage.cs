@@ -6,6 +6,7 @@ using UnityEngine;
 public class StorageCarriage : TrainCarriage
 {
     public ResourceManager rm; 
+    public bool unlocked = false;
     //public GameObject interactionPanel;
     void Start()
     {

@@ -85,24 +85,10 @@ public class TrainMovement : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other){        
-        if (other.CompareTag("1st Station"))
-        {
-            isNear1stStation = isNearStation = true;
-            
-        }
-
-        if (other.CompareTag("2nd Station"))
-        {
-            isNear2ndStation = isNearStation = true;
-            
-        }
-
-        if (other.CompareTag("3rd Station"))
-        {
-            isNear3rdStation = isNearStation = true;
-            
-        }
-
+        if (other.CompareTag("1st Station"))isNear1stStation = isNearStation = true;
+        if (other.CompareTag("2nd Station")) isNear2ndStation = isNearStation = true;
+        if (other.CompareTag("3rd Station"))isNear3rdStation = isNearStation = true;
+        
         // var isNearStartStation = other.CompareTag("Start Station") ? true : false;
         //isNear1stStation = other.CompareTag("1st Station") ? true : false;
         // var isNear2ndStation = other.CompareTag("2nd Station") ? true : false;
@@ -114,13 +100,10 @@ public class TrainMovement : MonoBehaviour
        
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("station"))
-        {
-            isNearStation = isNear1stStation = isNear2ndStation= isNear3rdStation = false;
-        }
-
+    void OnTriggerExit(Collider other){
+        if(other.CompareTag("1st Station"))isNear1stStation = isNearStation = false;
+        if(other.CompareTag("2nd Station"))isNear2ndStation = isNearStation = false;
+        if(other.CompareTag("3rd Station"))isNear3rdStation = isNearStation = false;
         //isNear1stStation = false;
     }
 
@@ -134,5 +117,9 @@ public class TrainMovement : MonoBehaviour
 
     void Reverse(){
 
+    }
+
+    public void ChangeCoupling(){
+        coupling = !coupling;
     }
 }

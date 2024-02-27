@@ -14,13 +14,10 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main camera not found");
-        }
+        
     }
 
-    void FixedUpdate()
+    void Update()
     {   //checking if there is a mouse click and main camera present
         if (Input.GetMouseButtonDown(0) && mainCamera != null)
         {
@@ -42,6 +39,7 @@ public class InputHandler : MonoBehaviour
                 string message = carriage.GetInteractionMessage(); // Method to get the message
                 uiManager.ShowInteractionPanel(hit.transform.position, message);//showing panel + text
                 uiManager.ShowActionPanel(carriage.name);
+                Debug.Log(carriage);
             }  else {
                 uiManager.HideActionPanel();
                 uiManager.HideInteractionPanel();

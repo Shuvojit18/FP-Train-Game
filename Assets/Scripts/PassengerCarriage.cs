@@ -6,8 +6,14 @@ public class PassengerCarriage : TrainCarriage
     public int PassengerCount { get; private set; }
     public int PassengerMorale { get; private set; }
     public int PassengerHealth { get; private set; }
+    public bool unlocked = false;
 
     private ResourceManager resource;
+    bool doOnce = true;
+
+    //for lerp calculation
+    float startValue, endValue, timeElapsed = 0f;
+    float duration = 13f; // Duration of the transition in seconds
     // if we require more than 1 passenger car this may come in handy
     // public PassengerCarriage(int initialPassengers)
     // {
@@ -15,8 +21,6 @@ public class PassengerCarriage : TrainCarriage
     //     PassengerMorale = 100; // Start with full morale
     //     PassengerHealth = 100; // Start with full health
     // }
-
-   
 
     void Start(){
         CarriageType = "Passenger";
@@ -26,10 +30,18 @@ public class PassengerCarriage : TrainCarriage
 
         resource = FindObjectOfType<ResourceManager>();
 
+        //this.SetVisibility = false;
+
     }
 
-    // void Update(){
-        
+    // void FixedUpdate(){
+        // if(unlocked && doOnce){
+        //     Vector3 currentPosition = pc.transform.position;
+        //     startValue = currentPosition.x - 20;
+        //     endValue = currentPosition.x;
+        //     float currentValue = Mathf.Lerp(startValue, endValue, timeElapsed / duration);
+        //     pc.transform.position = new Vector3(currentValue, currentPosition.y, currentPosition.z);
+        // }
     // }
 
     public override void Interact(){

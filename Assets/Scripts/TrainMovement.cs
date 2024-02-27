@@ -4,18 +4,13 @@ using System.Collections;
 
 public class TrainMovement : MonoBehaviour
 {
-    public float speed = 0.0f;
-    public float accl = 0.01f;
-    public bool signal = false;
-    public bool isBraking = true;
-    public float maxSpeed = 36.0f;
-    public float throttle;
-    public bool delegation = false;
-    public bool coupling = true;
-    public bool isStopping = false;
+    public float speed, accl, maxSpeed, throttle = 0.0f; 
+    public bool signal, delegation = false;
+    public bool isBraking, coupling, isStopping = true;
+    public bool isNearStation, isNear1stStation, isNear2ndStation, isNear3rdStation = false;
+
 
     private float stopThreshold = 1f; // Speed below which the train is considered to be stopping
-    private bool isNearStation = true;
 
     
     
@@ -89,15 +84,27 @@ public class TrainMovement : MonoBehaviour
         throttle = maxSpeed * f;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        // if (other.CompareTag("station"))
-        // {
-        //     isNearStation = true;
-        // }
+    void OnTriggerEnter(Collider other){        
+        if (other.CompareTag("1st Station"))
+        {
+            isNear1stStation = isNearStation = true;
+            
+        }
+
+        if (other.CompareTag("2nd Station"))
+        {
+            isNear2ndStation = isNearStation = true;
+            
+        }
+
+        if (other.CompareTag("3rd Station"))
+        {
+            isNear3rdStation = isNearStation = true;
+            
+        }
 
         // var isNearStartStation = other.CompareTag("Start Station") ? true : false;
-        // var isNear1stStation = other.CompareTag("1st Station") ? true : false;
+        //isNear1stStation = other.CompareTag("1st Station") ? true : false;
         // var isNear2ndStation = other.CompareTag("2nd Station") ? true : false;
         // var isNear3rdStation = other.CompareTag("3rd Station") ? true : false;
 
@@ -111,8 +118,10 @@ public class TrainMovement : MonoBehaviour
     {
         if (other.CompareTag("station"))
         {
-            isNearStation = false;
+            isNearStation = isNear1stStation = isNear2ndStation= isNear3rdStation = false;
         }
+
+        //isNear1stStation = false;
     }
 
     void CheckIfStoppedCorrectly()

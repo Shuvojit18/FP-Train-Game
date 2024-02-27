@@ -8,8 +8,9 @@ public class InputHandler : MonoBehaviour
     private Camera mainCamera; //camera ref
     public CarriageUIManager uiManager; //UI 
     TrainCarriage carriage;
-    // EngineCarriage engine;
-    // Panel enginePanel;
+    
+    public bool playerDecision;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -46,6 +47,15 @@ public class InputHandler : MonoBehaviour
                 uiManager.HideInteractionPanel();
             }
         }
+    }
+
+    public void YesDecision(){
+        playerDecision = true;
+    }
+
+    public void NoDecision(){
+        playerDecision = false;
+        uiManager.HideDecisionPanel();
     }
 
 

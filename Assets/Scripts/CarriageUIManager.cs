@@ -6,20 +6,21 @@ public class CarriageUIManager : MonoBehaviour
 {
     public GameObject interactionPanel; // Assign
     public TextMeshProUGUI interactionText; // Assign 
-    private GameObject currentActivePanel;
-
     public GameObject enginePanel;
     public GameObject passengerPanel;
+    public GameObject decisionPanel;
+    public TextMeshProUGUI decisionText;
+    //public bool decision;
 
-    // Vector3 savedCarriageData;
-    // string savedMssg;
-
+    private GameObject currentActivePanel;
+    //private GameObject decisionText;
+  
     private void Start(){
-        if (interactionPanel == null)
-        {
-            Debug.LogError("Interaction Panel not assigned");
-            return;
-        }
+        // if (interactionPanel == null)
+        // {
+        //     Debug.LogError("Interaction Panel not assigned");
+        //     return;
+        // }
 
         // Initially, hide the interaction panel
         interactionPanel.SetActive(false);
@@ -27,10 +28,11 @@ public class CarriageUIManager : MonoBehaviour
 
         enginePanel.SetActive(false);
         passengerPanel.SetActive(false);
+        decisionPanel.SetActive(false);
+        //decisionText = decisionPanel.transform.GetChild(0).gameObject;
+        
     }
-    // void refreshing(){
-    //     ShowActionPanel(savedCarriageData,savedMssg)
-    // }
+  
     public void ShowInteractionPanel(Vector3 carriagePosition, string message){
          // Close any currently active panel
         if (currentActivePanel != null)
@@ -73,5 +75,16 @@ public class CarriageUIManager : MonoBehaviour
     public void HideActionPanel(){
         enginePanel.SetActive(false);
         passengerPanel.SetActive(false);
+    }
+
+    public void ShowDecisionPanel(){
+        //decisionText.text = mssg;
+        decisionPanel.SetActive(true);
+        //if(decision) return = true;
+    }
+
+    public void HideDecisionPanel(){
+        //decisionText.text = mssg;
+        decisionPanel.SetActive(false);
     }
 }

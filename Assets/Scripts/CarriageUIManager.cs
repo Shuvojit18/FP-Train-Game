@@ -77,8 +77,8 @@ public class CarriageUIManager : MonoBehaviour
         passengerPanel.SetActive(false);
     }
 
-    public void ShowDecisionPanel(){
-        //decisionText.text = mssg;
+    public void ShowDecisionPanel(string mssg){
+        decisionText.text = mssg;
         decisionPanel.SetActive(true);
         //if(decision) return = true;
     }

@@ -3,15 +3,15 @@ using UnityEngine;
 //child class of train carriage
 public class PassengerCarriage : TrainCarriage
 {
-    public int PassengerCount { get; private set; }
-    public int PassengerMorale { get; set; }
-    public int PassengerHealth { get; private set; }
+    public int PassengerCount;
+    public int PassengerMorale;
+    public int PassengerHealth;
     public bool unlocked = false;
 
     EngineCarriage ec;
     private ResourceManager resource;
     GameManager gm;
-    bool doOnce = true;
+    //bool doOnce = true;
     bool pull = false;
 
     //for lerp calculation
@@ -39,7 +39,7 @@ public class PassengerCarriage : TrainCarriage
     }
 
     void FixedUpdate(){
-        //if(ec.transform.position.x - transform.position.x > 20) transform.Translate(Vector3.right * 0.1f);
+        //shaunting code
         if(unlocked && pull){
             if(ec.transform.position.x - transform.position.x < 5.5f) Debug.Log("Collision !!!! Game over !!");      
             

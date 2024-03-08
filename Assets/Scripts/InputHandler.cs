@@ -49,11 +49,14 @@ public class InputHandler : MonoBehaviour
 
     public void YesDecision(){
         playerDecision = true;
+        uiManager.HideDecisionPanel();
+        Debug.Log(playerDecision);
     }
 
     public void NoDecision(){
         playerDecision = false;
         uiManager.HideDecisionPanel();
+        Debug.Log(playerDecision);
     }
 
 
